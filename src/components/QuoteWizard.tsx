@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle2, Shield, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -62,10 +64,31 @@ const QuoteWizard = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    nextStep();
+    
+    try {
+      const { error } = await supabase.from("quote_submissions").insert({
+        state: formData.state,
+        violation_type: formData.violationType,
+        coverage_type: formData.coverageType,
+        has_vehicle: formData.hasVehicle ?? false,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone || null,
+        zip_code: formData.zipCode || null,
+        consent: formData.consent,
+      });
+
+      if (error) throw error;
+      
+      toast.success("Quote request submitted successfully!");
+      nextStep();
+    } catch (error) {
+      console.error("Error submitting quote:", error);
+      toast.error("Failed to submit quote. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const stepTitles = [
