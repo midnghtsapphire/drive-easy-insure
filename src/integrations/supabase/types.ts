@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       quote_submissions: {
         Row: {
           consent: boolean
@@ -28,6 +61,7 @@ export type Database = {
           state: string
           status: Database["public"]["Enums"]["quote_status"]
           updated_at: string
+          user_id: string | null
           violation_type: string
           zip_code: string | null
         }
@@ -44,6 +78,7 @@ export type Database = {
           state: string
           status?: Database["public"]["Enums"]["quote_status"]
           updated_at?: string
+          user_id?: string | null
           violation_type: string
           zip_code?: string | null
         }
@@ -60,6 +95,7 @@ export type Database = {
           state?: string
           status?: Database["public"]["Enums"]["quote_status"]
           updated_at?: string
+          user_id?: string | null
           violation_type?: string
           zip_code?: string | null
         }
