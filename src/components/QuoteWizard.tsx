@@ -3,6 +3,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Shield, AlertCircle, Loader2 } fro
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -20,6 +21,7 @@ interface FormData {
 }
 
 const QuoteWizard = () => {
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -77,6 +79,7 @@ const QuoteWizard = () => {
         phone: formData.phone || null,
         zip_code: formData.zipCode || null,
         consent: formData.consent,
+        user_id: user?.id || null,
       });
 
       if (error) throw error;
