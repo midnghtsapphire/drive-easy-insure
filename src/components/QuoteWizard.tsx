@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -21,6 +22,7 @@ interface FormData {
 }
 
 const QuoteWizard = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -451,9 +453,17 @@ const QuoteWizard = () => {
         </ol>
       </div>
 
-      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-        <AlertCircle className="w-4 h-4" />
-        Quotes sent to: {formData.email}
+      <div className="flex flex-col items-center gap-4">
+        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+          <AlertCircle className="w-4 h-4" />
+          Quotes sent to: {formData.email}
+        </div>
+        <Button
+          variant="hero"
+          onClick={() => navigate(`/checkout?state=${formData.state}&type=${formData.coverageType}`)}
+        >
+          Purchase Policy Now
+        </Button>
       </div>
     </div>
   );
