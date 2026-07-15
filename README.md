@@ -1,5 +1,9 @@
 # ReinstatePro — Drive Easy Insure
 
+
+<!-- AUTO-PACKAGE-BADGES:START -->
+
+<!-- AUTO-PACKAGE-BADGES:END -->
 **The fastest way to get SR-22 & FR-44 court-ordered insurance and get your license back.**
 
 > 🌐 **Website in Test:** https://drive-easy-insure.vercel.app  
